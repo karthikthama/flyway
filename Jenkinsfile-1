@@ -7,7 +7,10 @@ pipeline {
         stage ('git clone') {
             steps {
                 script {
-                    sh 'git clone -b BH0123456789 https://github.com/karthikthama/my-repo-db.git '
+                    sh '''
+                    rm -rf $WORKSPACE/*
+                    git clone -b BH0123456789 https://github.com/karthikthama/my-repo-db.git
+                    '''    
                 }     
             }
         }
