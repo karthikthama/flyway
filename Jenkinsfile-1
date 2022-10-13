@@ -13,9 +13,7 @@ pipeline {
         }
         stage ('script check') {
             steps {
-                script {
-                    sh echo "script checked"
-                } 
+                echo "script checked"   
             }
         } 
         stage ('store') {
