@@ -6,41 +6,56 @@ pipeline {
     stages {
         stage ('git clone') {
             steps {
-                sh 'git clone -b BH0123456789 https://github.com/karthikthama/my-repo-db.git '
+                script {
+                    sh 'git clone -b BH0123456789 https://github.com/karthikthama/my-repo-db.git '
+                }     
             }
         }
         stage ('script check') {
             steps {
-                sh echo "script checked"
+                script {
+                    sh echo "script checked"
+                } 
             }
         } 
         stage ('store') {
             steps {
-                sh '''
+                script {
+                     sh '''
                 cd $WORKSPACE/BH0123456789
                 cp -r $WORKSPACE/BH0123456789 /home/ubuntu
                 apt install zip unzip
                 zip -r BH0123456789.zip BH0123456789 '''
+                }               
             }
         }
         stage ('migrate') {
             steps {
-                 sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db-v $WORKSPACE/conf:/flyway/conf flyway/flyway -user=$DB_CREDS_USR -password=$DB_CREDS_PSW migrate'
+                script {
+                    sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db-v $WORKSPACE/conf:/flyway/conf flyway/flyway -user=$DB_CREDS_USR -password=$DB_CREDS_PSW migrate'
+                }
+                 
             }
         }         
         stage ('validate') {
             steps {
-                 sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW validate'
+                script {
+                    sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW validate'
+                }
             }
         }
         stage ('info') {
             steps {
-                 sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW info'
+                script {
+                    sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW info'
+                }     
             }
         }
         stage ('upload to master') {
             steps {
-                 sh 'git merge BH0123456789'
+                script {
+                    sh 'git merge BH0123456789'
+                }     
             }
         }
     }
