@@ -20,6 +20,7 @@ pipeline {
             steps {
                 script {
                      sh '''
+                     mkdir $WORKSPACE/BH0123456789
                      cd $WORKSPACE/BH0123456789
                      cp -r $WORKSPACE/BH0123456789 /home/ubuntu
                      apt install zip unzip
