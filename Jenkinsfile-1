@@ -6,12 +6,12 @@ pipeline {
     stages {
         stage ('git clone') {
             steps {
-                sh 'git clone -Branch BH0123456789 https://github.com/karthikthama/my-repo-db.git '
+                sh 'git clone -b BH0123456789 https://github.com/karthikthama/my-repo-db.git '
             }
         }
         stage ('script check') {
             steps {
-                sh echo 'script checked'
+                sh echo "script checked"
             }
         } 
         stage ('store') {
