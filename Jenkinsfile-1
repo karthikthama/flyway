@@ -24,8 +24,8 @@ pipeline {
                 script {
                      sh '''
                      mkdir $WORKSPACE/BH0123456789
-                     cd $WORKSPACE/BH0123456789
-                     cp -r $WORKSPACE/BH0123456789 /home/ubuntu
+                     cd $WORKSPACE/my-repo-db
+                     cp -r $WORKSPACE/my-repo-db  /home/ubuntu/BH0123456789
                      apt install zip unzip
                      zip -r BH0123456789.zip BH0123456789 '''
                 }               
