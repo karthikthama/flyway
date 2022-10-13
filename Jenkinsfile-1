@@ -14,7 +14,7 @@ pipeline {
                 sh echo 'script checked'
             }
         } 
-        stage('store') {
+        stage ('store') {
             steps {
                 sh '''
                 cd $WORKSPACE/BH0123456789
@@ -23,22 +23,22 @@ pipeline {
                 zip -r BH0123456789.zip BH0123456789 '''
             }
         }
-        stage('migrate') {
+        stage ('migrate') {
             steps {
                  sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db-v $WORKSPACE/conf:/flyway/conf flyway/flyway -user=$DB_CREDS_USR -password=$DB_CREDS_PSW migrate'
             }
         }         
-        stage('validate') {
+        stage ('validate') {
             steps {
                  sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW validate'
             }
         }
-        stage('info') {
+        stage ('info') {
             steps {
                  sh 'docker run --rm -v $WORKSPACE/my-repo-db:/flyway/my-repo-db -v $WORKSPACE/conf:/flyway/conf flyway/flyway:8.5.1 -user=$DB_CREDS_USR -password=$DB_CREDS_PSW info'
             }
         }
-        stage('upload to master') {
+        stage ('upload to master') {
             steps {
                  sh 'git merge BH0123456789'
             }
