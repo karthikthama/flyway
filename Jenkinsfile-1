@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                      sh '''
-                     mkdir $WORKSPACE/BH0123456789
+                     mkdir /home/ubuntu/BH0123456789
                      chmod 777 -R /home/ubuntu/BH0123456789 
                      cd $WORKSPACE/my-repo-db
                      cp -r $WORKSPACE/my-repo-db  /home/ubuntu/BH0123456789
