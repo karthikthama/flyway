@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                      sh '''
-                     sudo mkdir /home/ubuntu/BH0123456789
+                     chmod -R 777 /home/ubuntu/BH0123456789
                      cd $WORKSPACE/my-repo-db
                      cp -r $WORKSPACE/my-repo-db  /home/ubuntu/BH0123456789
                      apt install zip unzip
