@@ -24,8 +24,8 @@ pipeline {
                 script {
                      sh '''
                      cd $WORKSPACE/my-repo-db
-                     cp -r $WORKSPACE/my-repo-db  /home/ubuntu/backupfile
-                     cd /home/ubuntu/backupfile
+                     cp -r $WORKSPACE/my-repo-db  /home/ubuntu/backup
+                     cd /home/ubuntu/backup
                      zip -r BH0123456789.zip BH0123456789 
                      cp -r $WORKSPACE/my-repo-db/*.sql /jenkins/sql '''
                 }               
